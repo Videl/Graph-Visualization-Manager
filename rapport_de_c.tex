@@ -1,0 +1,80 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[urlbordercolor={0 0 1}]{hyperref}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{graphicx} 
+\usepackage{array}
+ 
+\usepackage[francais]{babel}
+
+\makeatletter
+\def\maketitle{%
+  \null
+  \begin{flushleft}
+   \includegraphics[width=6cm]{telecom_nancy.png} %ou image.png, .jpeg etc. 
+  \end{flushleft}
+  \vfill
+  \begin{center}\leavevmode
+    \normalfont
+    {\LARGE \@title\par}%
+    {\Large \@date\par} 
+    \vskip 1cm
+    %
+  \end{center}%
+  \vfill
+  \hfill
+  \begin{flushright}
+    {\Large \@author\par}
+  \end{flushright}
+  \cleardoublepage
+  }
+\makeatother
+\date{2012-2013}
+\author{Manon Signoret G32\\Thibaut Smith G32}
+\title{Projet CSH\\Visualisation d'un réseau de transport}
+    \renewcommand*\thesection{\arabic{section}}
+\begin{document}
+
+\thispagestyle{empty}
+\maketitle
+\pagebreak
+
+\section{Introduction}
+Nous avons choisi le sujet 4, un programme permetttant de visualiser un réseau de transport. Le programme permet de définir et visualiser un réseau de transports d'un type de marchandise : on peut définir l'espace géographique de travail de manière aléatoire (pour les tests), ou manuellement. De plus, on peut aussi générer des chemins entre plusieurs dépôts dans un ordre choisi. Le programme est écrit en C, et fonctionne entièrement en ligne de commande\footnote{à vérifier à cause de Graphviz}. Le code est disponible sur \href{https://github.com/Videl/Graph-Visualization-Manager}{GitHub}.
+
+
+\section{Cahier des charges}
+
+Le programme avait plusieurs objectifs à réaliser. En voici la liste, avec les solutions choisies pour atteindre l'objectif.
+
+\begin{center}
+\begin{tabular}{|m{7cm}|m{7cm}|}
+  \hline
+  Objectifs & Solutions \\
+  \hline
+  Interface Homme-Machine & Terminal (max 80 colonnes) \\
+  \hline
+  Représentation des graphes dans la mémoire & Structures\\
+  \hline
+  Saisie d'informations venant de l'utilisateur & Entrées sécurisées (\textbf{gets}) \\
+  \hline
+  Représentation des dépôts & Structure et listes chaînées simple\footnote{à vérifier à cause de Graphviz} \\
+  \hline
+  Algorithme de calcul du chemin optimum & \href{https://en.wikipedia.org/wiki/Travelling_salesman_problem}{Travelling salesman problem} \\
+   
+  \hline
+\end{tabular}
+\end{center}
+
+\section{Choix de conceptions}
+Ne pas oublier de mettre quelques screens
+\section{Déroulement du projet}
+Git, GitHub
+\section{Nombre d'heures}
+\section{Sources}
+
+\end{document}
