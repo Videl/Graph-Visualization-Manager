@@ -35,7 +35,7 @@
 \makeatother
 \date{2012-2013}
 \author{Manon Signoret G32\\Thibaut Smith G32}
-\title{Projet CSH\\Visualisation d'un réseau de transport}
+\title{Projet CSH\\Visualisation d'un r\'{e}seau de transport}
 
 \renewcommand*\thesection{\arabic{section}} % jolies Sections
 
@@ -46,38 +46,49 @@
 \pagebreak
 
 \section{Introduction}
-Nous avons choisi le sujet 4, un programme permettant de visualiser un réseau de transport. Le programme permet de définir et visualiser un réseau de transport d'un type de marchandise : on peut définir l'espace géographique de travail de manière aléatoire (pour les tests), ou manuellement. De plus, on peut aussi générer des chemins entre plusieurs dépôts dans un ordre choisi. Le programme est écrit en C, et fonctionne entièrement en ligne de commande\footnote{à vérifier à cause de Graphviz}. Le code est disponible sur \href{https://github.com/Videl/Graph-Visualization-Manager}{GitHub}.
+Nous avons choisi le sujet 4, un programme permettant de visualiser un r\'{e}seau de transport. Le programme permet de d\'{e}finir et visualiser un r\'{e}seau de transport d'un type de marchandise : on peut d\'{e}finir l'espace g\'{e}ographique de travail de mani\`{e}re al\'{e}atoire (pour les tests), ou manuellement. De plus, on peut aussi g\'{e}n\'{e}rer des chemins entre plusieurs d\'{e}pôts dans un ordre choisi. Le programme est \'{e}crit en C, et fonctionne enti\`{e}rement en ligne de commande\footnote{\`{a} v\'{e}rifier \`{a} cause de Graphviz}. Le code est disponible sur \href{https://github.com/Videl/Graph-Visualization-Manager}{GitHub}.
 
 
 \section{Cahier des charges}
-Le programme avait plusieurs objectifs à réaliser. En voici la liste, avec les solutions choisies pour atteindre l'objectif.
+Le programme avait plusieurs objectifs \`{a} r\'{e}aliser. En voici la liste, avec les solutions choisies pour atteindre l'objectif.
 
 \begin{center}
   \begin{tabular}{|m{7cm}|m{7cm}|}
     \hline
-    Objectifs & Solutions \\
+    \textbf{Objectifs} & \textbf{Solutions} \\
     \hline
-    Interface Homme-Machine                          & Terminal (max 80 colonnes) \\
+    Repr\'{e}sentation des graphes dans la m\'{e}moire       & Structures de \textbf{Graphviz} \\
     \hline
-    Représentation des graphes dans la mémoire       & Structures de \textbf{Graphviz} \\
+    Saisie d'informations venant de l'utilisateur    & Entr\'{e}es s\'{e}curis\'{e}es (\textbf{gets}) \\
     \hline
-    Saisie d'informations venant de l'utilisateur    & Entrées sécurisées (\textbf{gets}) \\
-    \hline
-    Représentation des dépôts                        & Structure et listes chaînées simple\footnote{à vérifier à cause de Graphviz} \\
+    Repr\'{e}sentation des d\'{e}pôts                        & Structure et listes chaîn\'{e}es simple\footnote{\`{a} v\'{e}rifier \`{a} cause de Graphviz} \\
     \hline
     Algorithme de calcul du chemin optimum           & \href{https://en.wikipedia.org/wiki/Travelling_salesman_problem}{Travelling salesman problem} \\
     \hline
+    Possibilit\'{e} de d\'{e}finir le r\'{e}seau (nombre de d\'{e}p\^ots, leur localisation, les liaisons existantes)			     &	IHM \\
+    \hline
+    Choix du d\'{e}p\^ot source/destination(s)			 & IHM \\
+    \hline
+    Co\^ut de chaque liaison						 & IHM \\
+    \hline
+  	Visualisation du r\'{e}seau							 & Graphviz ou fonctions maison ?? \\
+    \hline
+    Interface Homme-Machine (IHM)                    & Terminal (max 80 colonnes) \\
+    \hline
+    
   \end{tabular}
 \end{center}
 
 \section{Choix de conceptions}
 Ne pas oublier de mettre quelques screens
 
-\section{Déroulement du projet}
-Git, GitHub
+\section{D\'{e}roulement du projet}
+Nous avons choisi d'utiliser Git pour ce projet, \'{e}tant donn\'{e} que nous avions d\'{e}j\`{a} utilis\'{e} SVN\footnote{Il ne manque plus que Bazaar, Mercurial, etc!}. La forge de l'\'{e}cole ne supportant pas Git, nous avons choisi d'h\'{e}berger notre code source sur \href{https://github.com/Videl/Graph-Visualization-Manager}{GitHub}.
+\paragraph{Problèmes survenus}
+Tout d'abord, nous avons eu du mal \`{a} comprendre la documentation, et nous n'\'{e}tions pas s\^ur encore de quoi faire, et comment. Ce qui a retard\'{e} le projet. Nous sommes donc all\'{e} chercher de l'aide d'abord vers un binôme en particuler\footnote{Clemence Henry, Pierre Monnin}, et ensuite sur Internet. Cela nous a d\'{e}bloqu\'{e}, et \`{a} partir de ce moment, le projet a pu commencer.
 
 \section{Nombre d'heures}
-Nous avons passé un nombre important d'heures sur la compréhension de la documentation de Graphviz avant de savoir quoi faire, Graphviz fonctionnant avec ses propres structures.
+Nous avons pass\'{e} un nombre important d'heures sur la compr\'{e}hension de la documentation de Graphviz avant de savoir quoi faire, Graphviz fonctionnant avec ses propres structures.
 
 \begin{tabular}{|c|c|}
   \hline
@@ -85,7 +96,7 @@ Nous avons passé un nombre important d'heures sur la compréhension de la docum
   \hline
   Doc' Graphviz & ~5H \\
   \hline
-  Développement	&	~10H \\
+  D\'{e}veloppement	&	~10H \\
   \hline
   Tests	&	~5H \\ 
   \hline
