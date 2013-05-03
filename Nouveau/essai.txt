@@ -1,0 +1,9 @@
+digraph G {
+depot1->depot2 [label = "23"];
+depot1->depot3 [label = "46"];
+depot1->depot4 [label = "67"];
+depot2->depot3 [label = "45"];
+depot2->depot4 [label = "46"];
+depot3->depot4 [label = "27"];
+
+}
