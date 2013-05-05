@@ -1,14 +1,17 @@
-all: main.o
-	@gcc main.o -o main
+filename=text_to_dot
 
-main.o:
-	@gcc -c main.c
+all: ${filename}.o
+	@gcc ${filename}.o -o ${filename}
+
+${filename}.o:
+	@gcc -c ${filename}.c
 
 
 clean:
-	@rm main.o
-	@rm main
-	@rm *.jpg
+	@rm ${filename}.o
+	@rm ${filename}
 
 mrclean:
 	@rm *~ 
+	@rm *.jpg
+
