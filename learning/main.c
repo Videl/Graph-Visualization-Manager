@@ -146,8 +146,6 @@ int main(int argc, char **argv)
 	      int add = relationsLabel[locationMarker][curserCurrentRelation];
 	      int oadd = add;
 	      add = add + charToInt(c) * myPow(10, --labelIntMarker);
-	      if(output)
-		printf("add(%d) = add(%d) + %d * %d\n", add, oadd, charToInt(c), myPow(10, labelIntMarker));
 	      relationsLabel[locationMarker][curserCurrentRelation] = add;
 	    }
 	}
