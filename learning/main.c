@@ -2,9 +2,10 @@
 #include <stdlib.h>
 
 #define SIZE_NAME 100 // Strings name will be 100 chars *max*
-#define SIZE_NUMBER 4
+#define SIZE_NUMBER 3
 
 int charToInt(const char c);
+int myPow(const int a, const int b);
 
 int main(int argc, char **argv)
 {
@@ -72,6 +73,7 @@ int main(int argc, char **argv)
   int charMarker = 0;
   int locationMarker = 0;
   int labelMarker = 0;
+  int labelIntMarker = 0;
   int curserCurrentLocation = 0;
   int *nbOfRelations = malloc(locations*sizeof(int));
   int **relations = malloc(locations*sizeof(int*));
@@ -103,6 +105,10 @@ int main(int argc, char **argv)
 	    {
 	      relations[locationMarker] = malloc(nbOfRelations[locationMarker]*sizeof(int));
 	      relationsLabel[locationMarker] = malloc(nbOfRelations[locationMarker]*sizeof(int));
+	      for(i = 0; i < nbOfRelations[locationMarker]; i++)
+		{
+		  relationsLabel[locationMarker][i] = 0;
+		}
 	      mark++;
 	    }
 	  else
@@ -115,6 +121,7 @@ int main(int argc, char **argv)
 	  if(c == ' ')
 	    {
 	      mark++;
+	      labelIntMarker = SIZE_NUMBER;
 	    }
 	  else
 	   { 
@@ -136,11 +143,13 @@ int main(int argc, char **argv)
 	    }
 	  else
 	    {
-	      relationsLabel[locationMarker][curserCurrentRelation] = charToInt(c);
+	      int add = relationsLabel[locationMarker][curserCurrentRelation];
+	      int oadd = add;
+	      add = add + charToInt(c) * myPow(10, --labelIntMarker);
+	      if(output)
+		printf("add(%d) = add(%d) + %d * %d\n", add, oadd, charToInt(c), myPow(10, labelIntMarker));
+	      relationsLabel[locationMarker][curserCurrentRelation] = add;
 	    }
-	}
-      else
-	{
 	}
     }
   while(c != EOF);
@@ -213,3 +222,21 @@ int charToInt(const char c)
   else
     return 0;
 }
+
+/**
+	a^b = pow(a,b)
+ */
+int myPow(const int a, const int b)
+{
+	int i;
+	int acc = 1;
+	if(b > 0)
+	{
+		for(i = 0; i < b; i++)
+		{
+			acc *= a;
+		}
+	}
+	return acc;
+}
+
