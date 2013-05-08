@@ -36,11 +36,13 @@ int main(int argc, char **argv)
     }
 
     int c;
-    int mark = 0;
+    int mark = -1;
     int stringPos;
     int locations = 0;
     /**
       mark
+      if mark == -1:
+      we are reading the number of locations
       if mark == 0:
       we are still reading the name
       if mark == 1:
@@ -85,7 +87,12 @@ int main(int argc, char **argv)
     {
         c = fgetc(inputFileP);
         //printf("Lecture de >>> %c <<<\n", c);
-        if(mark == 0) // name
+        if(mark == -1)
+        {
+            if(c == '\n')
+                mark++;
+        }
+        else if(mark == 0) // name
         {
             if(c == ' ')
             {
