@@ -1,17 +1,15 @@
 filename=text_to_dot
+CFLAGS=-W -Wall
 
 all: ${filename}.o
-	@gcc ${filename}.o -o ${filename}
+	gcc -o ${filename} $(filename).c $(CFLAGS);
 
 ${filename}.o:
-	@gcc -c ${filename}.c
+	gcc -c ${filename}.c $(CFLAGS)
 
 
 clean:
-	@rm ${filename}.o
-	@rm ${filename}
+	rm *.o
 
 mrclean:
-	@rm *~ 
-	@rm *.jpg
-
+	rm $(filename)
