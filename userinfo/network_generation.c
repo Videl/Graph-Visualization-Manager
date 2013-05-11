@@ -1,3 +1,6 @@
+/**
+ * Code compatible avec *GNU99*
+ **/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -6,9 +9,10 @@
 void go_to_random()
 {
     srand(time(NULL));
-    int number_of_depot = rand() % MAX_DEPOT_ALLOWED  + MIN_DEPOT_ALLOWED;
-    int i, j;
+    int number_of_depot;
+    int i;
 
+    number_of_depot = rand() % MAX_DEPOT_ALLOWED  + MIN_DEPOT_ALLOWED;
     printf("Nombres de dépôts créés : %d.\n", number_of_depot);
 
     char **names = malloc(number_of_depot*sizeof(char*));
@@ -37,7 +41,7 @@ void go_to_random()
 
 
 
-    // Freeing
+    /* Freeing */
     for(i = 0; i < number_of_depot; i++)
     {
         free(names[i]);
@@ -77,7 +81,8 @@ void go_to_manual()
             exit(1);
         }
 
-        printf("Nom du dépôt : ", i);
+
+        printf("Nom du dépôt : %d", i);
         scanf("%s", names[i]);
         getchar();
         
@@ -137,7 +142,7 @@ void go_to_manual()
 
     printf("Fin de la génération du fichier %s.\n", sortie);
 
-    // Free
+    /* Free */
     for(i = 0; i < number_of_depot; i++)
     {
         free(names[i]);

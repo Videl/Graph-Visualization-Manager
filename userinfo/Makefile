@@ -1,12 +1,13 @@
 filename=ask_user_info
 CC=gcc
-FLAGS=-W -Wall -ansi -pedantic
+CFLAGS=-W -Wall -ansi -std=gnu99
 
-all: $(filename)
+all: mrproper $(filename)
 	@echo "Making $(filename) binary..."
+    @echo "Using following \$(CFLAGS) : $CFLAGS
 
 ask_user_info: ask_user_info.o network_generation.o
-	gcc -o ask_user_info ask_user_info.o network_generation.o
+	gcc -o ask_user_info ask_user_info.o network_generation.o $(CFLAGS)
 
 ask_user_info.o: ask_user_info.c
 	gcc -o ask_user_info.o -c ask_user_info.c $(CFLAGS)

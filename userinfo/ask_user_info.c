@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "network_generation.h"
 
-int main(int argc, char **argv)
+int main(void)
 {
     printf("##################################\n");
     printf("# Assistant de création de dépôt #\n");
