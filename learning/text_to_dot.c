@@ -1,5 +1,10 @@
+/**
+ * Code compatible avec *GNU99*
+  **/
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define SIZE_NAME 100 // Strings name will be 100 chars *max*
 #define SIZE_NUMBER 3
@@ -37,7 +42,6 @@ int main(int argc, char **argv)
 
     int c;
     int mark = -1;
-    int stringPos;
     int locations = 0;
     /**
       mark
@@ -73,13 +77,11 @@ int main(int argc, char **argv)
 
     int charMarker = 0;
     int locationMarker = 0;
-    int labelMarker = 0;
     int labelIntMarker = 0;
-    int curserCurrentLocation = 0;
+    int curserCurrentRelation = 0;
     int *nbOfRelations = malloc(locations*sizeof(int));
     int **relations = malloc(locations*sizeof(int*));
     int **relationsLabel = malloc(locations*sizeof(int*));
-    int curserCurrentRelation = 0;
 
     if(output)
         printf("Reading the input file.\n");
@@ -150,7 +152,6 @@ int main(int argc, char **argv)
             else
             {
                 int add = relationsLabel[locationMarker][curserCurrentRelation];
-                int oadd = add;
                 add = add + charToInt(c) * myPow(10, --labelIntMarker);
                 relationsLabel[locationMarker][curserCurrentRelation] = add;
             }

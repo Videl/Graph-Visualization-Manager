@@ -1,15 +1,19 @@
-filename=text_to_dot
-CFLAGS=-W -Wall
+filename=   text_to_dot
+CFLAGS=     -W -Wall -std=gnu99
+CC=         gcc
+ECHO_MSG=   echo
+
 
 all: ${filename}.o
-	gcc -o ${filename} $(filename).c $(CFLAGS);
+	@${ECHO_MSG} "Compiling $(filename) with $(CC) compiler."
+	${CC} -o ${filename} $(filename).c $(CFLAGS)
 
 ${filename}.o:
-	gcc -c ${filename}.c $(CFLAGS)
+	${CC} -c ${filename}.c $(CFLAGS)
 
 
 clean:
-	rm *.o
+	@rm -rf *.o
 
 mrclean:
-	rm $(filename)
+	@rm -f $(filename)
