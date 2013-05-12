@@ -83,7 +83,7 @@ void go_to_manual()
         }
 
 
-        printf("Nom du dépôt : %d", i);
+        printf("Nom du dépôt %d : ", i);
         scanf("%s", names[i]);
         getchar();
         
