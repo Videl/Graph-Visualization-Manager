@@ -1,13 +1,15 @@
 filename=ask_user_info
 CC=gcc
-CFLAGS=-W -Wall -std=gnu99
+CFLAGS=-W -Wall -std=gnu99 $(DEBUG)
+LFLAGS=
 
-all: mrproper $(filename)
+all: $(filename)
 	@echo "Making $(filename) binary..."
-    @echo "Using following \$(CFLAGS) : $CFLAGS"
+	@echo "Using following CFLAGS : $(CFLAGS)"
+	@echo "Using following LFLAGS : $(LFLAGS)"
 
 ask_user_info: ask_user_info.o network_generation.o
-	$(CC) -o ask_user_info ask_user_info.o network_generation.o $(CFLAGS)
+	$(CC) -o ask_user_info ask_user_info.o network_generation.o $(LFLAGS)
 
 ask_user_info.o: ask_user_info.c
 	$(CC) -o ask_user_info.o -c ask_user_info.c $(CFLAGS)
