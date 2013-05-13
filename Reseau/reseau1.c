@@ -19,7 +19,7 @@ S_Depot** Charge_Graphe(S_Depot** Graphe, char*** Nom_depot, int *Nb_depot_graph
     int       i, j;            
     
     //ouvre le fichier
-    Fichier = fopen(".\\graphe.txt", "r+");
+    Fichier = fopen("graphe.txt", "r+");
     assert(Fichier && "Impossible d'ouvrir le fichier");
     
     //récupère le nombre de dépots du graphe
