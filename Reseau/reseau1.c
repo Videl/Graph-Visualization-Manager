@@ -24,10 +24,11 @@ S_Depot** Charge_Graphe(S_Depot** Graphe, char*** Nom_depot, int *Nb_depot_graph
     
     //récupère le nombre de dépots du graphe
     fscanf(Fichier, "%d", Nb_depot_graphe);
+    printf("Nombre de dépôts : %d\n", *Nb_depot_graphe);
     
     //allocation de la mémoire    
     Graphe = (S_Depot**)malloc(sizeof(S_Depot*));
-    (*Nom_depot) = (char**)malloc(sizeof(char*));
+    (*Nom_depot) = (char**)malloc(*Nb_depot_graphe*sizeof(char*));
     
     //pour chaque depot du graphe
     for(i=0; i<(*Nb_depot_graphe); i++)
@@ -82,7 +83,7 @@ S_Depot* Ajouter_Depot(S_Depot* liste_depot, S_Depot* nouveau_depot){
 
 void Afficher_Liste(S_Depot* liste_depot, char* Nom_depot){
     
-    printf("Successeurs du dépot %s: ", Nom_depot);
+    printf("Successeurs du dépot \"%s\" : ", Nom_depot);
     
     if( !liste_depot )
         printf("Pas de successeur");    

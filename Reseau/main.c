@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include "reseau1.h"
 
-int main(int argc, char *argv[])
+int main()
 {
     
     FILE* Fichier = NULL;
@@ -35,7 +35,6 @@ int main(int argc, char *argv[])
     
     printf("\n\n");
     
-    system("PAUSE");
     return 0;
     
     
