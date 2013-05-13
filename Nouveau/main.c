@@ -7,7 +7,7 @@
 //
 
 #include <stdio.h>
-#include "reseau.h"
+#include "reseau1.h"
 
 int main(int argc, char *argv[])
 {
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     printf(" Visualisation d'un réseau de transport \n");
     printf(" ====================\n");
     
-    Graphe = Charge_Graphe(Depot, &Nom_Depot, &Nb_depot_graphe);
+   Depot = Charge_Graphe(Depot, &Nom_Depot, &Nb_depot_graphe);
     
     for( i = 0 ; i < Nb_depot_graphe ; i++ ){
         Afficher_Liste(Depot[i], Nom_Depot[i]);
@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
     
     printf("\n\n");
     
+    system("PAUSE");
     return 0;
     
     

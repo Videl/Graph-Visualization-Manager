@@ -7,7 +7,7 @@
 //
 
 #include <stdio.h>
-#include "reseau.h"
+#include "reseau1.h"
 
 
 S_Depot** Charge_Graphe(S_Depot** Graphe, char*** Nom_depot, int *Nb_depot_graphe)
@@ -230,7 +230,7 @@ void Affiche_Parcours_Min(float* Dist, int* Pred, int depart, int arrivee, char*
         printf("Il n'y a pas de trajet\n");
     
     else{
-        while(parcours != Dep){
+        while(parcours != depart){
                 
             temp = Dist[parcours];      //sauvegarde de la distance
             
