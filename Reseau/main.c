@@ -35,6 +35,14 @@ int main()
     
     printf("\n\n");
     
+    for ( i = 0 ; i < *Nb_depot_graphe ; i++)
+    {
+        free(Nom_Depot[i]);
+        free(Depot[i]);
+    }
+    free(Nom_Depot);
+    free(Depot);
+    
     return 0;
     
     
