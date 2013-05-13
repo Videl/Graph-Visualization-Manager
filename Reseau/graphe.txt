@@ -1,6 +1,6 @@
 4
-depot1 3 2 23 3 46 4 67
+depot1 2 2 11 3 12
 depot2 2 3 45 4 46
 depot3 1 4 27
-depot4 3
+depot4 0
 

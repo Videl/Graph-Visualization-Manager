@@ -113,7 +113,7 @@ void Init_Dijkstra(S_Depot** Graphe, int Nb_depot_graphe, char** Nom_depot)
    
     do
     {
-        printf("Quelle est le dépot de depart ? ");
+        printf("Quel est le dépôt de départ ? ");
         scanf("%s", saisie);
         for(i=0; i<Nb_depot_graphe; i++)
             if(strcmp(saisie, Nom_depot[i]) == 0)
@@ -123,11 +123,11 @@ void Init_Dijkstra(S_Depot** Graphe, int Nb_depot_graphe, char** Nom_depot)
     
     do
     {
-        printf("Quelle est le dépot d'arrivee ? ");
+        printf("Quel est le dépôt d'arrivée ? ");
         scanf("%s", saisie);
         for(i=0; i<Nb_depot_graphe; i++)
             if(strcmp(saisie, Nom_depot[i]) == 0)
-                arrivee = i;
+                arrivee = i+1;
     }while(arrivee == -1);
     
     //allocation de la mémoire
@@ -235,7 +235,7 @@ void Affiche_Parcours_Min(float* Dist, int* Pred, int depart, int arrivee, char*
                 
             temp = Dist[parcours];      //sauvegarde de la distance
             
-            printf("%s(%0.0f)", Nom_depot[parcours], Dist[parcours]);
+            printf("%s(%0.0f)", Nom_depot[parcours-1], Dist[parcours]);
             parcours = Pred[parcours]; //le successeur devient le prédecesseur
             printf(" <-(%0.0f)- ", temp-Dist[parcours]); //distance entre 2 sommets
         }
