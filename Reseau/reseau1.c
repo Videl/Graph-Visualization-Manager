@@ -221,6 +221,7 @@ void F_Dijkstra(S_Depot** Graphe, int Nb_depot_graphe, float* Dist, int* Pred, i
 
 void Affiche_Parcours_Min(float* Dist, int* Pred, int depart, int arrivee, char** Nom_depot)
 {
+    FILE*     Fichier;
     int parcours = arrivee;
     int temp = 0;
     
