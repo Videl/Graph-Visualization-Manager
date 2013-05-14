@@ -4,3 +4,4 @@ depot2 2 3 45 4 46
 depot3 1 4 27
 depot4 0
 
+depot2 depot1
