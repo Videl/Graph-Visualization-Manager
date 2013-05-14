@@ -226,6 +226,7 @@ void Affiche_Parcours_Min(float* Dist, int* Pred, int depart, int arrivee, char*
     
     //affiche le parcours minimal
     printf("Trajet : \n");
+    Fichier = fopen("graphe.txt", "w+");
     
     if(Dist[arrivee] == FLT_MAX)
         printf("Il n'y a pas de trajet\n");
@@ -236,11 +237,14 @@ void Affiche_Parcours_Min(float* Dist, int* Pred, int depart, int arrivee, char*
             temp = Dist[parcours];      //sauvegarde de la distance
             
             printf("%s(%0.0f)", Nom_depot[parcours-1], Dist[parcours]);
+            fprintf(Fichier, "%s ", Nom_depot[parcours-1]);
             parcours = Pred[parcours]; //le successeur devient le prédecesseur
             printf(" <-(%0.0f)- ", temp-Dist[parcours]); //distance entre 2 sommets
         }
         printf("%s", Nom_depot[depart]);      //affiche le point de départ
-    }    
+        fprintf(Fichier, "%s", Nom_depot[depart]);
+    }
+    fclose(Fichier);
 }    
 
 
