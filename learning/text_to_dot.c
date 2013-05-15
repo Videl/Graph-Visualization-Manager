@@ -1,6 +1,7 @@
 /**
  * Code compatible avec *GNU99*
-  **/
+ * en fait non, problème ligne 231 et 240
+ **/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,9 +9,14 @@
 
 #define SIZE_NAME 100 // Strings name will be 100 chars *max*
 #define SIZE_NUMBER 3
+#define SOLUTION_MAX 30
 
 int charToInt(const char c);
 int myPow(const int a, const int b);
+int isSolution(const char *depotOne, const char *depotTwo, const char
+**solution);
+int myAbs(const int a);
+
 
 int main(int argc, char **argv)
 {
@@ -66,12 +72,20 @@ int main(int argc, char **argv)
 
     /** Names **/
     char **names = malloc(locations*sizeof(char*));
+    char **solutions = malloc(SOLUTION_MAX*sizeof(char*));
+    
     int i;
     int j;
+
 
     for(i = 0; i < locations; i++)
     {
         names[i] = malloc(SIZE_NAME*sizeof(char));
+    }
+
+    for(i = 0; i < SOLUTION_MAX; i++)
+    {
+        solutions[i] = malloc(SIZE_NAME*sizeof(char*));
     }
 
 
@@ -79,6 +93,8 @@ int main(int argc, char **argv)
     int locationMarker = 0;
     int labelIntMarker = 0;
     int curserCurrentRelation = 0;
+    int solutionMarker = 0;
+    int solutionStrMarker = 0;
     int *nbOfRelations = malloc(locations*sizeof(int));
     int **relations = malloc(locations*sizeof(int*));
     int **relationsLabel = malloc(locations*sizeof(int*));
@@ -88,78 +104,101 @@ int main(int argc, char **argv)
     do
     {
         c = fgetc(inputFileP);
-        //printf("Lecture de >>> %c <<<\n", c);
-        if(mark == -1)
+        //printf("locationMarker : %d, Lecture de >>> %c <<<\n", locationMarker, c);
+        if(locationMarker < locations)
         {
-            if(c == '\n')
-                mark++;
-        }
-        else if(mark == 0) // name
-        {
-            if(c == ' ')
+            if(mark == -1)
             {
-                mark++;
-                names[locationMarker][charMarker] = '\0';
-                charMarker = 0;
+                if(c == '\n')
+                    mark++;
             }
-            else
+            else if(mark == 0) // name
             {
-                names[locationMarker][charMarker++] = c;
-            }
-        }
-        else if(mark == 1) // number of relations
-        {
-            if(c == ' ')
-            {
-                relations[locationMarker] = malloc(nbOfRelations[locationMarker]*sizeof(int));
-                relationsLabel[locationMarker] = malloc(nbOfRelations[locationMarker]*sizeof(int));
-                for(i = 0; i < nbOfRelations[locationMarker]; i++)
+                if(c == ' ')
                 {
-                    relationsLabel[locationMarker][i] = 0;
+                    mark++;
+                    names[locationMarker][charMarker] = '\0';
+                    charMarker = 0;
                 }
-                mark++;
+                else
+                {
+                    names[locationMarker][charMarker++] = c;
+                }
             }
-            else
+            else if(mark == 1) // number of relations
             {
-                nbOfRelations[locationMarker] = charToInt(c);
+                if(c == ' ')
+                {
+                    relations[locationMarker] = malloc(nbOfRelations[locationMarker]*sizeof(int));
+                    relationsLabel[locationMarker] = malloc(nbOfRelations[locationMarker]*sizeof(int));
+                    for(i = 0; i < nbOfRelations[locationMarker]; i++)
+                    {
+                        relationsLabel[locationMarker][i] = 0;
+                    }
+                    mark++;
+                }
+                else if(c == '\n')
+                {
+                    locationMarker++;
+                }
+                else
+                {
+                    nbOfRelations[locationMarker] = charToInt(c);
+                }
             }
-        }
-        else if(mark == 2) // id of relation
+            else if(mark == 2) // id of relation
+            {
+                if(c == ' ')
+                {
+                    mark++;
+                    labelIntMarker = SIZE_NUMBER;
+                }
+                else
+                { 
+                    relations[locationMarker][curserCurrentRelation] = charToInt(c) - 1;
+                }
+            }
+            else if(mark == 3) // label of relation
+            {
+                if(c == '\n')
+                {
+                    locationMarker++;
+                    curserCurrentRelation = 0;
+                    mark = 0;
+                }
+                else if(c == ' ')
+                {
+                    mark--;
+                    curserCurrentRelation++;
+                }
+                else
+                {
+                    int add = relationsLabel[locationMarker][curserCurrentRelation];
+                    //int oadd = add;
+                    add = add + charToInt(c) * myPow(10, --labelIntMarker);
+                    //printf("add(%d) = add(%d) + %d * %d\n", add, oadd,
+                    //charToInt(c), myPow(10, labelIntMarker));
+                    relationsLabel[locationMarker][curserCurrentRelation] = add;
+                }
+            }
+        } else   // We are done looking for files, we are now registering the
+                // solution
         {
-            if(c == ' ')
+            if(c == ' ' || c == '\n')
             {
-                mark++;
-                labelIntMarker = SIZE_NUMBER;
+                solutions[solutionMarker++][solutionStrMarker] = '\0';
+                solutionStrMarker = 0;
+                printf("Capture de %s !\n", solutions[solutionMarker-1]);
             }
             else
-            { 
-                relations[locationMarker][curserCurrentRelation] = charToInt(c) - 1;
-            }
-        }
-        else if(mark == 3) // label of relation
-        {
-            if(c == '\n')
-            {
-                locationMarker++;
-                curserCurrentRelation = 0;
-                mark = 0;
-            }
-            else if(c == ' ')
-            {
-                mark--;
-                curserCurrentRelation++;
-            }
-            else
-            {
-                int add = relationsLabel[locationMarker][curserCurrentRelation];
-                add = add + charToInt(c) * myPow(10, --labelIntMarker);
-                relationsLabel[locationMarker][curserCurrentRelation] = add;
-            }
+                solutions[solutionMarker][solutionStrMarker++] = c;
         }
     }
     while(c != EOF);
 
     fclose(inputFileP);
+    solutionMarker = 0;
+    solutionStrMarker = 0;
 
     if(output)
     {
@@ -191,9 +230,24 @@ int main(int argc, char **argv)
         for(j = 0; j < nbOfRelations[i]; j++)
         {
             if(output)
-                printf("%s->%s [label = \"%d\"]\n", names[i], names[relations[i][j]], relationsLabel[i][j]);
+            {
+                int sol = isSolution(names[i], names[relations[i][j]], solutions);
+                if(sol == 0)
+                    printf("%s->%s [label = \"%d\", color=red]\n", names[i],
+                    names[relations[i][j]], relationsLabel[i][j]);
+                else
+                    printf("%s->%s [label = \"%d\"]\n", names[i], names[relations[i][j]], relationsLabel[i][j]);
+            }
             else
-                fprintf(outputFileP, "%s->%s [label = \"%d\"]\n", names[i], names[relations[i][j]], relationsLabel[i][j]);
+            {   
+                int sol = isSolution(names[i], names[relations[i][j]], solutions);
+                if(sol == 0)                 
+                    fprintf(outputFileP, "%s->%s [label = \"%d\", color=red]\n", names[i], 
+                        names[relations[i][j]], relationsLabel[i][j]);
+                else
+                    fprintf(outputFileP, "%s->%s [label = \"%d\"]\n", names[i], 
+                        names[relations[i][j]], relationsLabel[i][j]); 
+            }
         }
     }
 
@@ -212,10 +266,15 @@ int main(int argc, char **argv)
         free(relationsLabel[i]);
         free(names[i]);
     }
+    for(i = 0; i < SOLUTION_MAX; i++)
+    {
+        free(solutions[i]);
+    }
     free(relations);
     free(relationsLabel);
     free(names);
     free(nbOfRelations);
+    free(solutions);
 
     return 0;
 }
@@ -243,5 +302,34 @@ int myPow(const int a, const int b)
         }
     }
     return acc;
+}
+
+int myAbs(const int a)
+{
+    return ((a > 0) ? a : -a);
+}
+
+int isSolution(const char *depotOne, const char *depotTwo, const char **solution)
+{
+    int i;
+    int iOne = -1;
+    int iTwo = -1;
+    int markOne = -1;
+    int markTwo = -1;
+
+    for(i = 0; i < SOLUTION_MAX; i++)
+    {
+        if(strcmp(solution[i], depotOne) == 0)
+        {
+            markOne = 0;
+            iOne = i;
+        }
+        else if(strcmp(solution[i], depotTwo) == 0)
+        {
+            markTwo = 0;
+            iTwo = i;
+         }
+    }
+    return ((markOne == 0 && markTwo == 0 && myAbs(iOne - iTwo) == 1) ? 0 : -1);
 }
 
