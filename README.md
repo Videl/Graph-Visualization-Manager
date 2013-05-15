@@ -30,3 +30,7 @@ Exemple avec quatre dépôts :
 
 Il faut bien noter la taille minimale du **nombre** dans les distances, c'est-à-dire 3 chiffres. Pour le modifier, c'est la variable pré-processeur #define SIZE_NUMBER.
 
+Auteurs
+=======
+ * Signoret Manon
+ * Smith Thibaut
