@@ -12,6 +12,8 @@ void go_to_random()
     srand(time(NULL));
     int number_of_depot;
     int i;
+    int j;
+    int k;
 
     number_of_depot = rand() % MAX_DEPOT_ALLOWED  + MIN_DEPOT_ALLOWED;
     printf("Nombres de dépôts créés : %d.\n", number_of_depot);
@@ -25,29 +27,77 @@ void go_to_random()
         names[i][2] = 'p';
         names[i][3] = 'o';
         names[i][4] = 't';
-        names[i][5] = (char) i;
+        names[i][5] = (char) (i + 48); // 48 to begin at 1
         names[i][6] = '\0';
+        
+        printf("Dépôt %s créé !\n", names[i]);
     }
     
-    printf("%d dépôts créés.\n", number_of_depot);
+    printf("%d dépôt(s) créé(s).\n", number_of_depot);
 
     int *number_of_relations = malloc(number_of_depot*sizeof(int));
+    int **relationWith       = malloc(number_of_depot*sizeof(int*));
+    int **labelWith          = malloc(number_of_depot*sizeof(int*));
 
     for(i = 0; i < number_of_depot; i++)
     {
         number_of_relations[i] = rand() % MAX_RELATIONS_PER_DEPOT +
         MIN_RELATIONS_PER_DEPOT;
-        printf("%d relations pour le dépôt numéro %d.\n", number_of_relations[i], i);
+        printf("%d relation(s) pour le dépôt numéro %d.\n", number_of_relations[i], i);
+        
+        relationWith[i] = malloc(number_of_relations[i]*sizeof(int));
+        labelWith[i]    = malloc(number_of_relations[i]*sizeof(int));
+        for(j = 0, k = number_of_relations[i]; j < k; j++)
+        {
+            relationWith[i][j] = rand() % number_of_depot;
+            labelWith[i][j]    = rand() % MAX_DISTANCE + MIN_DISTANCE;
+
+            printf("Relation avec %s (%d) et une distance de %d.\n",
+            names[relationWith[i][j]], relationWith[i][j], labelWith[i][j]);
+        }
+    }
+
+    printf("Écriture dans \"%s\".\n", OUTPUT_FILE);
+
+    FILE *output = fopen(OUTPUT_FILE, "a+");
+
+    if(output == NULL)
+    {
+        printf("Problème lors de l'ouverture du fichier de sortie \"%s\".\n",
+        OUTPUT_FILE);
+        exit(4);
     }
 
 
+    fprintf(output, "%d\n", number_of_depot);
+    for(i = 0; i < number_of_depot; i++)
+    {
+        fprintf(output, "%s %d", names[i], number_of_relations[i]);
+
+        for(j = 0, k = number_of_relations[i]; j < k; j++)
+        {
+            fprintf(output, " %d %d",
+            relationWith[i][j]+1, labelWith[i][j]);
+        }
+        
+        fprintf(output, "\n");
+    }
+    fclose(output);
+
+    printf("Fin de la génération du fichier %s.\n", OUTPUT_FILE);
+   
 
     /* Freeing */
     for(i = 0; i < number_of_depot; i++)
     {
         free(names[i]);
+        free(relationWith[i]);
+        free(labelWith[i]);
     }
     free(names);
+    free(number_of_relations);
+    free(relationWith);
+    free(labelWith);
 }
 
 
