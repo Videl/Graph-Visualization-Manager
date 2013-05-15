@@ -9,10 +9,10 @@ all: $(filename)
 	@${ECHO_MSG} "Using following CFLAGS : $(CFLAGS)"
 	@${ECHO_MSG} "Using following LFLAGS : $(LFLAGS)"
 
-main: $(filename).o reseau.o
+$(filename): $(filename).o reseau.o
 	$(CC) -o $(filename) $(filename).o reseau.o $(LFLAGS)
 
-main.o: $(filename).c
+$(filename).o: $(filename).c
 	$(CC) -o $(filename).o -c $(filename).c $(CFLAGS)
 
 reseau1.o: reseau1.c reseau1.h
