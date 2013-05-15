@@ -46,7 +46,7 @@
 \pagebreak
 
 \section{Introduction}
-Nous avons choisi le sujet 4, un programme permettant de visualiser un r\'{e}seau de transport. Le programme permet de d\'{e}finir et visualiser un r\'{e}seau de transport d'un type de marchandise : on peut d\'{e}finir l'espace g\'{e}ographique de travail de mani\`{e}re al\'{e}atoire (pour les tests), ou manuellement. De plus, on peut aussi g\'{e}n\'{e}rer des chemins entre plusieurs d\'{e}pôts dans un ordre choisi. Le programme est \'{e}crit en C, et fonctionne enti\`{e}rement en ligne de commande\footnote{\`{a} v\'{e}rifier \`{a} cause de Graphviz}. Le code est disponible sur \href{https://github.com/Videl/Graph-Visualization-Manager}{GitHub}.
+Nous avons choisi le sujet 4, un programme permettant de visualiser un r\'{e}seau de transport. Le programme permet de d\'{e}finir et visualiser un r\'{e}seau de transport d'un type de marchandise : on peut d\'{e}finir l'espace g\'{e}ographique de travail de mani\`{e}re al\'{e}atoire (pour les tests), ou manuellement (avec un fichier .txt déjà existant ou avec une saisie manuelle sur la console). De plus, on peut aussi g\'{e}n\'{e}rer des chemins entre plusieurs d\'{e}pôts dans un ordre choisi. Le programme est \'{e}crit en C, et fonctionne enti\`{e}rement en ligne de commande\footnote{\`{a} v\'{e}rifier \`{a} cause de Graphviz}. Le code est disponible sur \href{https://github.com/Videl/Graph-Visualization-Manager}{GitHub}.
 
 
 \section{Cahier des charges}
@@ -63,7 +63,7 @@ Le programme avait plusieurs objectifs \`{a} r\'{e}aliser. En voici la liste, av
     \hline
     Repr\'{e}sentation des d\'{e}pôts                        & Structure et listes chaîn\'{e}es simple\footnote{\`{a} v\'{e}rifier \`{a} cause de Graphviz} \\
     \hline
-    Algorithme de calcul du chemin optimum           & \href{https://en.wikipedia.org/wiki/Travelling_salesman_problem}{Travelling salesman problem} \\
+    Algorithme de calcul du chemin optimum           & \href{https://en.wikipedia.org/wiki/Travelling_salesman_problem}{Travelling salesman problem}, Dijkstra \\
     \hline
     Possibilit\'{e} de d\'{e}finir le r\'{e}seau (nombre de d\'{e}p\^ots, leur localisation, les liaisons existantes)			     &	IHM \\
     \hline
@@ -71,7 +71,7 @@ Le programme avait plusieurs objectifs \`{a} r\'{e}aliser. En voici la liste, av
     \hline
     Co\^ut de chaque liaison						 & IHM \\
     \hline
-  	Visualisation du r\'{e}seau							 & Graphviz ou fonctions maison ?? \\
+  	Visualisation du r\'{e}seau							 & Graphviz \\
     \hline
     Interface Homme-Machine (IHM)                    & Terminal (max 80 colonnes) \\
     \hline
@@ -80,12 +80,43 @@ Le programme avait plusieurs objectifs \`{a} r\'{e}aliser. En voici la liste, av
 \end{center}
 
 \section{Choix de conceptions}
-Ne pas oublier de mettre quelques screens
+Dans notre logiciel, une seule structure de données a été utilisé, nous avons donc choisi de ne créer que la structure dépôt, qui est caractérisée par son nom, sa distance avec le dépot précédent et le sous-ensemble de dépôts suivants. En effet, au début du projet nous avions réfléchis sur le nombre de structures à créer en pensant également à un structure liaison qui pourrait symboliser les arcs entre les différents somments (dépôts), puis nous n'avons pas choisi de la faire car après début de codage nous nous sommes rendus compte qu'elle était inutile. Ainsi voici, ci-dessous, une capture d'écran montrant la structure utilisée dans notre logiciel.
+\begin{center}
+\includegraphics[scale=0.7]{capture2.png}
+\end{center} 
 
-\section{D\'{e}roulement du projet}
-Nous avons choisi d'utiliser Git pour ce projet, \'{e}tant donn\'{e} que nous avions d\'{e}j\`{a} utilis\'{e} SVN\footnote{Il ne manque plus que Bazaar, Mercurial, etc!}. La forge de l'\'{e}cole ne supportant pas Git, nous avons choisi d'h\'{e}berger notre code source sur \href{https://github.com/Videl/Graph-Visualization-Manager}{GitHub}.
-\paragraph{Problèmes survenus}
-Tout d'abord, nous avons eu du mal \`{a} comprendre la documentation, et nous n'\'{e}tions pas s\^ur encore de quoi faire, et comment. Ce qui a retard\'{e} le projet. Nous sommes donc all\'{e} chercher de l'aide d'abord vers un binôme en particuler\footnote{Clemence Henry, Pierre Monnin}, et ensuite sur Internet. Cela nous a d\'{e}bloqu\'{e}, et \`{a} partir de ce moment, le projet a pu commencer.
+\paragraph{Problème majeur survenu}
+Tout d'abord, nous avons eu du mal \`{a} comprendre la documentation, et nous n'\'{e}tions pas s\^ur encore de quoi faire, et comment. Ce qui a retard\'{e} le projet. Nous sommes donc all\'{e}s chercher de l'aide d'abord vers un binôme en particuler\footnote{Clemence Henry, Pierre Monnin}, et ensuite sur Internet. Cela nous a d\'{e}bloqu\'{e}, et \`{a} partir de ce moment, le projet a pu commencer.
+Pour expliquer comment fonctionne notre logiciel nous avons réalisé un bref schéma, ci-dessous.
+\begin{center}
+\includegraphics[scale=0.6]{conception.png}
+\end{center} 
+\paragraph{Calcul de l'itinéraire le plus court entre deux dépôts}
+Cette partie là du logiciel a été assez longue. Nous avons donc créer une structure dépôt, et c'est dans cet ensemble là que le traitement des données se fait. Grâce à l'algorithme de Dijkstra (qui n'a pas posé de difficultés particulières), nous calculons le chemin le plus court entre le dépôt choisi en départ et celui en arrivée. Le problème est que Manon Signoret travaille sur Mac et Thibaut Smith sur Ubuntu et dans l'encodage du fichier .txt entrant il y avait un problème. Sous Mac le programme se lançait mais indiquait une erreur, tandis que sur Ubuntu tout marchait à la perfection. (Ci-dessous une capture décran montrant le problème sous Mac)
+\begin{center}
+\includegraphics[scale=0.6]{capture1.png}
+\end{center}
+Pour subvenir à ce problème Manon Signoret a donc également travaillé sur Ubuntu (en DualBoot).
+
+\paragraph{Génération d'un .txt avec la solution}
+Avec la partie décrite ci-dessus nous obtenions donc le chemin optimal entre deux dépôts. Mais il a fallu générer cette solution sur un fichier .txt pour qu'il puisse être (dans l'étape suivante) transformé en un fichier .dot. La solution s'est donc affichée a la fin du fichier .txt, grâce a la commande \textit{$fseek(Fichier, 0, SEEK\_END);$} qui nous permet de se place à la fin d'un fichier. METTRE UNE PHOTO DU .TXT QUI MONTRE LA FIN AVEC LE NOM DES DEPOTS QUI S'AJOUTENT ET DIRE LES PROBLEMES QUE TU AS RENCONTRE
+
+\paragraph{Génération d'un .dot avec la solution}
+Après l'étape précédente, le plus important était de connaître comment fonctionnait Graphviz pour générer un fichier .dot lisible par ce logiciel. Ainsi nous avons regardé la documentation sur internet et nous avons pu nous inspirer d'un structure générale, ci-dessous.
+\begin{center}
+\includegraphics[scale=0.4]{capture3.png}
+\end{center}
+DIRE LES PROBLEMES QUE TU AS RENCONTRES
+
+\section{Représentation visuelle du logiciel}
+Voici quelques captures d'écran montrant ce que notre logiciel fait sur la console. (EN METTRE TROIS ENVIRON ET UNE LIGNE DE DESCRIPTION)
+
+\paragraph{Graphviz}
+Voilà maintenant ce que nous obtenons grâce aux .dot générés par notre logiciel, grâce au logiciel Graphviz. Nous avons coloré en rouge le chemin optimal de l'itinéraire en solution.
+(METTRE UNE CAPTURE D'ECRAN)
+
+\section{Gestion du code source}
+Nous avons choisi d'utiliser Git pour ce projet, \'{e}tant donn\'{e} que nous avions d\'{e}j\`{a} utilis\'{e} SVN\footnote{Il ne manque plus que Bazaar, Mercurial, etc!}. La forge de l'\'{e}cole ne supportant pas Git, nous avons choisi d'h\'{e}berger notre code source sur \href{https://github.com/Videl/Graph-Visualization-Manager}{GitHub}.C'était une première pour chaque membre du binôme, personne ne l'avait jamais utilisé, et il s'est avéré qu'il est très facile d'utilisation et très pratique, plus que SVN à notre goût.
 
 \section{Nombre d'heures}
 Nous avons pass\'{e} un nombre important d'heures sur la compr\'{e}hension de la documentation de Graphviz avant de savoir quoi faire, Graphviz fonctionnant avec ses propres structures.
