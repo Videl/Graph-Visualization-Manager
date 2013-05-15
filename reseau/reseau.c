@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "reseau.h"
 
+char output[MAX_NAME];
 
 S_Depot** Charge_Graphe(S_Depot** Graphe, char*** Nom_depot, int *Nb_depot_graphe)
 {
@@ -17,10 +18,20 @@ S_Depot** Charge_Graphe(S_Depot** Graphe, char*** Nom_depot, int *Nb_depot_graph
     FILE*     Fichier;         //le fichier.dot qui contient le graphe
     S_Depot * temp = NULL;     //sous-ensemble temporaire qui récupère les données du nouveau dépot
     int       i, j;            
-    
+
+
     //ouvre le fichier
-    Fichier = fopen("graphe.txt", "r+");
-    assert(Fichier && "Impossible d'ouvrir le fichier");
+    printf("Indiquez le nom du fichier texte contenant les informations : ");
+    scanf("%s", output);
+    getchar();
+
+    Fichier = fopen(output, "r+");
+    if(Fichier == NULL)
+    {
+        printf("Impossible d'ouvrir le fichier \"graphe.txt\".\n");
+        printf("Fin du programme.\n");
+        exit(1);
+    }
     
     //récupère le nombre de dépots du graphe
     fscanf(Fichier, "%d", Nb_depot_graphe);
@@ -92,7 +103,7 @@ void Afficher_Liste(S_Depot* liste_depot, char* Nom_depot){
     {
         while( liste_depot != NULL )
         {
-            printf("(%d, %0.0f) ", liste_depot->num_depot, liste_depot->dist);
+            printf("(%d, %0.0f) ", liste_depot->num_depot-1, liste_depot->dist);
             liste_depot = liste_depot->suiv;
         }
     }
@@ -227,16 +238,17 @@ void Affiche_Parcours_Min(float* Dist, int* Pred, int depart, int arrivee, char*
     
     //affiche le parcours minimal
     printf("Trajet : \n");
-    Fichier = fopen("graphe.txt", "a+");
+    Fichier = fopen(output, "a+");
     fprintf(Fichier, "\n");
     fseek(Fichier, 0, SEEK_END);
     
     if(Dist[arrivee] == FLT_MAX)
         printf("Il n'y a pas de trajet\n");
     
-    else{
-        while(parcours != depart){
-                
+    else
+    {
+        while(parcours != depart)
+        {        
             temp = Dist[parcours];      //sauvegarde de la distance
             
             printf("%s(%0.0f)", Nom_depot[parcours-1], Dist[parcours]);

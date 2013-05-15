@@ -17,21 +17,26 @@ int main()
     int i = 0;
     char** Nom_Depot;
     
-    printf("##################################\n");
+    printf("###################################\n");
     printf("# Création de dépôt déjà existant #\n");
-    printf("##################################\n");
+    printf("###################################\n");
     
-   Depot = Charge_Graphe(Depot, &Nom_Depot, &Nb_depot_graphe);
+    Depot = Charge_Graphe(Depot, &Nom_Depot, &Nb_depot_graphe);
     
+    printf("Format d'affichage : (index dépôt, distance)\n");
+    printf("*** Note : index dépôt commence à zéro ! ***\n");
+
     for( i = 0 ; i < Nb_depot_graphe ; i++ ){
+
         Afficher_Liste(Depot[i], Nom_Depot[i]);
         printf("\n");
     }
-    printf("\n\n");
+
+    printf("\n");
     
     Init_Dijkstra(Depot, Nb_depot_graphe, Nom_Depot);
     
-    printf("\n\n");
+    printf("\n");
     
     for ( i = 0 ; i < Nb_depot_graphe ; i++)
     {

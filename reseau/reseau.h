@@ -1,5 +1,9 @@
-//
+#include <stdio.h>
+#include <stdlib.h>
+#include <float.h>
+#include <string.h>
 //  reseau.h
+//
 //  
 //
 //  Created by Manon Signoret on 22/04/13.
@@ -9,18 +13,14 @@
 #ifndef _reseau_h
 #define _reseau_h
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <float.h>
-#include <string.h>
+#define MAX_NAME 30
 
 typedef struct depot
 {
     int    num_depot;        //numéro du dépot
     float  dist;             //distance entre ce dépot et le précédent
     struct depot *suiv;      //sous-ensemble suivant
-}S_Depot;
+} S_Depot;
 
 
 // Fonction qui charge le graphe depuis le fichier.dot  
