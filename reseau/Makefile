@@ -1,27 +1,30 @@
-filename=main
-CC=gcc
-CFLAGS=-W -Wall -std=gnu99 $(DEBUG)
+filename=	main
+CC=		gcc
+CFLAGS=		-W -Wall -std=gnu99 $(DEBUG)
 LFLAGS=
+ECHO_MSG=	echo
 
 all: $(filename)
-	@echo "Making $(filename) binary..."
-	@echo "Using following CFLAGS : $(CFLAGS)"
-	@echo "Using following LFLAGS : $(LFLAGS)"
+	@${ECHO_MSG} "Making $(filename) binary..."
+	@${ECHO_MSG} "Using following CFLAGS : $(CFLAGS)"
+	@${ECHO_MSG} "Using following LFLAGS : $(LFLAGS)"
 
-main: main.o reseau1.o
-	$(CC) -o main main.o reseau1.o $(LFLAGS)
+main: $(filename).o reseau.o
+	$(CC) -o $(filename) $(filename).o reseau.o $(LFLAGS)
 
-main.o: main.c
-	$(CC) -o main.o -c main.c $(CFLAGS)
+main.o: $(filename).c
+	$(CC) -o $(filename).o -c $(filename).c $(CFLAGS)
 
 reseau1.o: reseau1.c reseau1.h
-	$(CC) -o reseau1.o -c reseau1.c $(CFLAGS)
+	$(CC) -o reseau.o -c reseau.c $(CFLAGS)
 
 
-.PHONY: clean mrproper
+.PHONY: clean mrproper $(filename)
 
 clean:
-	rm -rf *.o
+	@rm -rf *.o
+	@rm -rf *.core
 
 mrproper: clean
-	rm -rf $(filename)
+	@rm -rf $(filename)
+	@$(ECHO_MSG) "Cleaned $(filename) folder."

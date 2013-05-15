@@ -7,12 +7,11 @@
 //
 
 #include <stdio.h>
-#include "reseau1.h"
+#include "reseau.h"
 
 int main()
 {
     
-    FILE* Fichier = NULL;
     S_Depot** Depot;
     int Nb_depot_graphe = 0;
     int i = 0;
