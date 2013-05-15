@@ -30,6 +30,43 @@ Exemple avec quatre dépôts :
 
 Il faut bien noter la taille minimale du **nombre** dans les distances, c'est-à-dire 3 chiffres. Pour le modifier, c'est la variable pré-processeur #define SIZE_NUMBER.
 
+Exemple
+=======
+
+    videl@lucille:/.../% ./general 
+    ###############################################
+    #                   Projet C                  #
+    #    Visualisation d'un réseau de transport   #
+    ###############################################
+    Comment voulez-vous utiliser ce programme ?
+    1. Utiliser un réseau deja existant
+    2. Créer son propre reseau
+    % 1
+    ###################################
+    # Création de dépôt déjà existant #
+    ###################################
+    Indiquez le nom du fichier texte contenant les informations : graphe.txt
+    Nombre de dépôts : 7
+    Format d'affichage : (index dépôt, distance)
+    *** Note : index dépôt commence à zéro ! ***
+    Successeurs du dépot "depot0" : (4, 232) (0, 434) (6, 159) 
+    Successeurs du dépot "depot1" : (4, 358) 
+    Successeurs du dépot "depot2" : (5, 422) (0, 348) 
+    Successeurs du dépot "depot3" : (2, 209) (1, 340) (3, 333) (4, 359) (5, 447) 
+    Successeurs du dépot "depot4" : (3, 424) (6, 156) (5, 176) (5, 234) 
+    Successeurs du dépot "depot5" : (0, 456) (5, 416) (2, 304) (3, 371) 
+    Successeurs du dépot "depot6" : (6, 453) (5, 120) (2, 588) (1, 460) (1, 135)
+    Quel est le dépôt de départ ? depot0
+    Quel est le dépôt d'arrivée ? depot1
+    Trajet : 
+    depot1(783) <-(135)- depot5(648) <-(416)- depot4(232) <-(232)- depot0
+    Indiquez le nom du fichier texte contenant les informations :
+    (Le lien complet à partir de la racine du projet) : reseau/graphe.txt
+    Indiquer le nom du fichier .dot en sortie : test51.dot
+    ./dot_maker/text_to_dot reseau/graphe.txt test51.dot... exécuté.
+    Indiquer le nom du fichier image (.png) en sortie : image51.png
+    dot -T png -o image51.png test51.dot... exécuté.
+    % feh test51.png
 Auteurs
 =======
  * Signoret Manon
