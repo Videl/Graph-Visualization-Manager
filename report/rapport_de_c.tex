@@ -8,6 +8,7 @@
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{graphicx} 
 \usepackage{array}
+\usepackage{caption}
  
 \usepackage[francais]{babel}
 
@@ -61,9 +62,9 @@ Le programme avait plusieurs objectifs \`{a} r\'{e}aliser. En voici la liste, av
     \hline
     Saisie d'informations venant de l'utilisateur    & Entr\'{e}es (\textbf{scanf}) \\
     \hline
-    Repr\'{e}sentation des d\'{e}pôts                        & Structure et listes cha\^in\'{e}es simple \\
+    Repr\'{e}sentation des d\'{e}pôts                        & Structure et listes cha\^in\'{e}es simples \\
     \hline
-    Algorithme de calcul du chemin optimum           & \href{https://en.wikipedia.org/wiki/Travelling_salesman_problem}{Travelling salesman problem}, Dijkstra \\
+    Algorithme de calcul du chemin optimal           & \href{https://en.wikipedia.org/wiki/Travelling_salesman_problem}{Travelling salesman problem}, Dijkstra \\
     \hline
     Possibilit\'{e} de d\'{e}finir le r\'{e}seau (nombre de d\'{e}p\^ots, leur localisation, les liaisons existantes)			     &	IHM \\
     \hline
@@ -82,45 +83,77 @@ Le programme avait plusieurs objectifs \`{a} r\'{e}aliser. En voici la liste, av
 \end{center}
 
 \section{Choix de conceptions}
-Dans notre logiciel, une seule structure de données a été utilisée, nous avons donc choisi de ne créer que la structure dépôt, qui est caractérisée par son nom, sa distance avec le dépôt précédent et le sous-ensemble de dépôts suivants. En effet, au début du projet nous avions réfléchis sur le nombre de structures à créer en pensant également à une structure liaison qui pourrait symboliser les arcs entre les différents sommets (dépôts), puis nous avons choisi de ne pas la faire car après avoir commencé à coder, nous nous sommes rendu compte qu'elle était inutile. Ainsi voici, ci-dessous, une capture d'écran montrant la structure utilisée dans notre logiciel.
+Dans notre logiciel, une seule structure de données a été utilisée, nous avons donc choisi de ne créer que la structure dépôt, qui est caractérisée par son nom, sa distance avec le dépôt précédent et le sous-ensemble de dépôts suivants. En effet, au début du projet nous avions réfléchi sur le nombre de structures à créer en pensant également à une structure liaison qui pourrait symboliser les arcs entre les différents sommets (dépôts), puis nous avons choisi de ne pas la faire car après avoir commencé à coder, nous nous sommes rendus compte qu'elle était inutile. 
 
 \begin{center}
 \includegraphics[scale=0.7]{capture2.png}
+\captionof{figure}{Structure utilisée dans notre logiciel}
+\label{fig1}
 \end{center} 
 
 \paragraph{Problème majeur survenu}
-Tout d'abord, nous avons eu du mal \`{a} comprendre la documentation, et nous n'\'{e}tions pas s\^urs encore de quoi faire, et comment. Ce qui a retard\'{e} le projet. Nous sommes donc all\'{e}s chercher de l'aide d'abord vers un binôme en particulier\footnote{Clémence Henry, Pierre Monnin}, et ensuite sur Internet. Cela nous a d\'{e}bloqu\'{e}, et \`{a} partir de ce moment, le projet a pu commencer.
-Pour expliquer comment fonctionne notre logiciel nous avons réalisé un bref schéma, ci-dessous.
+Tout d'abord, nous avons eu du mal \`{a} comprendre la documentation, et nous n'\'{e}tions pas s\^urs encore de quoi faire, et comment, ce qui a retard\'{e} le projet. Nous sommes donc all\'{e}s chercher de l'aide d'abord vers un binôme en particulier\footnote{Clémence Henry, Pierre Monnin}, et ensuite sur Internet. Cela nous a d\'{e}bloqu\'{e}, et \`{a} partir de ce moment, le projet a pu commencer.
+
 \begin{center}
-\includegraphics[scale=0.6]{conception.png}
+\includegraphics[scale=0.5]{conception.png}
+\captionof{figure}{Schéma d'explications de notre logiciel}
+\label{fig2}
 \end{center} 
 \paragraph{Calcul de l'itinéraire le plus court entre deux dépôts}
-Cette partie là du logiciel a été assez longue. Nous avons donc créé une structure dépôt, et c'est dans cet ensemble là que le traitement des données se fait. Grâce à l'algorithme de Dijkstra (qui n'a pas posé de difficultés particulières), nous calculons le chemin le plus court entre le dépôt choisi en départ et celui en arrivée. Un problème survenu était que Manon Signoret travaille sous Mac et Thibaut Smith sous FreeBSD : l'encodage des fichiers textes contenant les informations était différent. Sous Mac, le programme se lançait mais indiquait une erreur, tandis que sur FreeBSD le programme fonctionnait comme prévu. (Ci-dessous une capture d'écran montrant le problème sous Mac.)
+Cette partie là du logiciel a été assez longue. Nous avons donc créé une structure dépôt, et c'est dans cet ensemble là que le traitement des données se fait. Grâce à l'algorithme de Dijkstra (qui n'a pas posé de difficultés particulières), nous calculons le chemin le plus court entre le dépôt choisi en départ et celui en arrivée. Un problème survenu était que Manon Signoret travaille sous Mac et Thibaut Smith sous FreeBSD : l'encodage des fichiers textes contenant les informations était différent. Sous Mac, le programme se lançait mais indiquait une erreur, tandis que sur FreeBSD le programme fonctionnait comme prévu.
 \begin{center}
 \includegraphics[scale=0.6]{capture1.png}
+\captionof{figure}{Problème rencontré sous Mac}
+\label{fig3}
 \end{center}
 Pour subvenir à ce problème Manon Signoret, a donc travaillé sur Ubuntu (en double boot).
 
 \paragraph{Génération d'un .txt avec la solution}
-Avec la partie décrite ci-dessus nous obtenions donc le chemin optimal entre deux dépôts. Mais il a fallu générer cette solution sur un fichier .txt pour qu'il puisse être (dans l'étape suivante) transformé en un fichier \textit{.dot} compatible avec \textbf{Graphviz}. La solution se rajoute donc à la fin du fichier .txt contenant les données, grâce à la commande \textit{$fseek(Fichier, 0, SEEK\_END);$} qui nous permet de se placer à la fin d'un fichier. METTRE UNE PHOTO DU .TXT QUI MONTRE LA FIN AVEC LE NOM DES DEPOTS QUI S'AJOUTENT. L'un des problèmes redondants était qu'il fallait souvent réajuster le script qui transformait le fichier texte en fichier dot compatible avec Graphviz : au fur et à mesure que l'on rajoutait des informations dans le fichier texte, il fallait le prendre en compte dans le programme de traduction \textit{.txt > .dot}.
+Avec la partie décrite ci-dessus nous obtenions donc le chemin optimal entre deux dépôts. Mais il a fallu générer cette solution sur un fichier .txt pour qu'il puisse être (dans l'étape suivante) transformé en un fichier \textit{.dot} compatible avec \textbf{Graphviz}. La solution se rajoute donc à la fin du fichier .txt contenant les données, grâce à la commande \textit{$fseek(Fichier, 0, SEEK\_END);$} qui nous permet de nous placer à la fin d'un fichier. 
+\begin{center}
+\includegraphics[scale=0.5]{capture7.png}
+\captionof{figure}{Ajout aux .txt des dépôts solutions }
+\label{fig4}
+\end{center}
+L'un des problèmes redondants était qu'il fallait souvent réajuster le script qui transformait le fichier texte en fichier dot compatible avec Graphviz : au fur et à mesure que l'on rajoutait des informations dans le fichier texte, il fallait le prendre en compte dans le programme de traduction \textit{.txt > .dot}.
 
 \paragraph{Génération d'un .dot avec la solution}
-Après l'étape précédente, le plus important était de connaître comment fonctionnait Graphviz pour générer un fichier .dot lisible par ce logiciel. Ainsi nous avons regardé la documentation sur internet et nous avons pu nous inspirer d'une structure générale, ci-dessous.
+Après l'étape précédente, le plus important était de connaître comment fonctionnait Graphviz pour générer un fichier .dot lisible par ce logiciel. Ainsi nous avons regardé la documentation sur internet et nous avons pu nous inspirer d'une structure générale.
 \begin{center}
 \includegraphics[scale=0.4]{capture3.png}
+\captionof{figure}{Génération d'une structure en .dot}
+\label{fig5}
 \end{center}
 
 
 \section{Représentation visuelle du logiciel}
-Voici quelques captures d'écran montrant ce que notre logiciel fait sur la console. (EN METTRE TROIS ENVIRON ET UNE LIGNE DE DESCRIPTION)
+Voici quelques captures d'écran montrant ce que notre logiciel fait sur la console. 
+\begin{center}
+\includegraphics[scale=0.5]{capture4.png}
+\captionof{figure}{Avec un fichier .txt existant}
+\label{fig6}
+\end{center}
+\begin{center}
+\includegraphics[scale=0.5]{capture5.png}
+\captionof{figure}{Création d'un réseau sur console}
+\label{fig7}
+\end{center}
+\begin{center}
+\includegraphics[scale=0.5]{capture6.png}
+\captionof{figure}{Création d'un réseau sur console (suite)}
+\label{fig8}
+\end{center}
 
 \paragraph{Graphviz}
 Voilà maintenant ce que nous obtenons grâce aux .dot générés par notre logiciel, grâce au logiciel Graphviz. Nous avons coloré en rouge le chemin optimal de l'itinéraire en solution.
 
 \begin{center}
-\includegraphics[scale=0.6]{output.png}
+\includegraphics[scale=0.5]{output.png}
+\captionof{figure}{Graphique final sur Graphviz}
+\label{fig9}
 \end{center}
 
+\pagebreak
 Le programme de traduction \textit{.txt > .dot} peut se découper en parties :
 
 
@@ -131,7 +164,7 @@ Le programme de traduction \textit{.txt > .dot} peut se découper en parties :
 \item Libération de la mémoire. 
 \end{enumerate}
 
-Des problèmes et des bugs sont apparus dans chaque parties de ce programme. Nous avons corrigé le plus de bugs possible grâce aux outils \textbf{gdb} et \textbf{valgrind} ainsi que les paramètres de compilation $-W -Wall -std=gnu99$, qui se sont avérés très utiles.
+Des problèmes et des bugs sont apparus dans chaque partie de ce programme. Nous avons corrigé le plus de bugs possible grâce aux outils \textbf{gdb} et \textbf{valgrind} ainsi que les paramètres de compilation $-W -Wall -std=gnu99$, qui se sont avérés très utiles.
 
 \section{Gestion du code source}
 Nous avons choisi d'utiliser Git pour ce projet, \'{e}tant donn\'{e} que nous avions d\'{e}j\`{a} utilis\'{e} SVN\footnote{Il ne manque plus que Bazaar, Mercurial, etc!}. La forge de l'\'{e}cole ne supportant pas Git, nous avons choisi d'h\'{e}berger notre code source sur \href{https://github.com/Videl/Graph-Visualization-Manager}{GitHub}. C'était une première pour Manon Signoret qui ne le connaissait pas encore. Il s'est avéré qu'il est très facile d'utilisation et très pratique, plus que SVN à notre goût.
@@ -139,19 +172,34 @@ Nous avons choisi d'utiliser Git pour ce projet, \'{e}tant donn\'{e} que nous av
 \section{Nombre d'heures}
 Nous avons pass\'{e} un nombre important d'heures sur la compr\'{e}hension de la documentation de Graphviz avant de savoir quoi faire, Graphviz fonctionnant avec ses propres structures.
 
-\begin{tabular}{|c|c|}
+\begin{center}
+\begin{tabular}{|c|c|c|}
   \hline
-  Travail & Heures \\
+  Travail & Heures & Membre du binôme \\
   \hline
-  Doc' Graphviz & ~5H \\
+  Doc' Graphviz & ~5H & Les deux \\
   \hline
-  D\'{e}veloppement	&	~10H \\
+  D\'{e}veloppement de Dijkstra	&	~18H & Manon Signoret \\
   \hline
-  Tests	&	~5H \\ 
+  D\'{e}veloppement traitement .txt en .dot	&	~10H & Thibaut Smith \\
   \hline
-  Rapport	&	~3H \\
+  Tests	&	~10H & Les deux\\ 
+  \hline
+  Rapport	&	~3H & Les deux\\
   \hline
 \end{tabular}
+\end{center}
+
+\section{Conclusion}
+Bien qu'un peu impressionnés au début par le sujet, qui nous semblait le plus difficile, mais également le plus intéressant, nous avons pris plaisir à créer ce logiciel. Les difficultés ne furent que très rares et n'étaient pas là où on les attendait. Nous avions déjà travaillé en binôme pour le projet de TOP et celui de SD, et notre collaboration se passant bien, nous avons donc naturellement décidé de nous mettre de nouveau ensemble pour ce logiciel. Les heures de travail furent réparties équitablement, et chacun était présent pour aider l'autre tout au long de la conception. Ce projet nous a également permis de nous améliorer (ou de débuter) sur certains logiciels, comme Graphviz, Git et également en LaTeX (avec lequel nous avons rédigé notre rapport).
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\pagebreak
 
 \section{Sources}
 
