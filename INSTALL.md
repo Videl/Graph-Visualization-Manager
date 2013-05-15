@@ -4,10 +4,12 @@ INSTALL
 Requirements
 ------------
  * Graphviz
-   ''sudo apt-get install graphviz'' or ''cd /usr/ports/graphics/graphviz && make install'' or ''port install graphviz''
+     *  ``sudo apt-get install graphviz``
+     *  ``cd /usr/ports/graphics/graphviz && make install``
+     *  ``port install graphviz``
  * GCC or Clang
  * make
- * any image reader such as ''feh''
+ * any image reader such as ``feh``
  
  Compile
  -------
@@ -29,10 +31,12 @@ Requirements
 Programmes nécéssaires
 ----------------------
  * Graphviz
-   ''sudo apt-get install graphviz'' ou ''cd /usr/ports/graphics/graphviz && make install'' ou ''port install graphviz''
+     *  ``sudo apt-get install graphviz``
+     *  ``cd /usr/ports/graphics/graphviz && make install``
+     *  ``port install graphviz``
  * GCC ou Clang
  * make
- * un lecteur d'image tel que ''feh''
+ * un lecteur d'image tel que ``feh``
  
  Compiler
  --------
