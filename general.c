@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+char input[MAX_NAME];
+
 int main(void)
 { 
     int choix;
@@ -40,7 +42,12 @@ int main(void)
         default:
         break;
     }
+    printf("Indiquez le nom du fichier texte contenant les informations : ");
+    scanf("%s", input);
+    getchar();
     
+    //system(./dot_maker/text_to_dot reseau/input.txt output.dot);
+    //system(dot -t png -o output.png output.dot);
     
     
 }
