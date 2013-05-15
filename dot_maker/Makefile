@@ -18,3 +18,4 @@ clean:
 
 mrproper: clean
 	@rm -f $(filename)
+	@$(ECHO_MSG) "Cleaned $(filename) folder."

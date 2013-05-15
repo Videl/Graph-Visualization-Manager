@@ -17,6 +17,9 @@ $(SUBDIRS):
 .PHONY: clean mrproper dot_maker reseau userinfo
 
 clean:
+	@for dir in $(SUBDIRS); do \
+               $(MAKE) -C $$dir mrproper; \
+             done
 	@rm -rf *.o
 	@rm -rf *.core
 
