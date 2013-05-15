@@ -1,6 +1,6 @@
 /**
  * Code compatible avec *GNU99*
- * en fait non, problème ligne 231 et 240
+ * en fait non, problème
  **/
 
 #include <stdio.h>
@@ -188,7 +188,7 @@ int main(int argc, char **argv)
             {
                 solutions[solutionMarker++][solutionStrMarker] = '\0';
                 solutionStrMarker = 0;
-                printf("Capture de %s !\n", solutions[solutionMarker-1]);
+                //printf("Capture de %s !\n", solutions[solutionMarker-1]);
             }
             else
                 solutions[solutionMarker][solutionStrMarker++] = c;
@@ -270,6 +270,7 @@ int main(int argc, char **argv)
     {
         free(solutions[i]);
     }
+
     free(relations);
     free(relationsLabel);
     free(names);
