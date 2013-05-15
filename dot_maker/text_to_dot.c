@@ -11,10 +11,32 @@
 #define SIZE_NUMBER 3
 #define SOLUTION_MAX 30
 
+/**
+ * Gives the translation of a char into his corresponding number
+ */
 int charToInt(const char c);
+
+/**
+ * myPow(a, b) = a^b
+ * Gets the power of *a* by *b*.
+ */
 int myPow(const int a, const int b);
+
+/**
+ * This function allows to know if depotOne to depotTwo is part
+ * of the solution path.
+ *
+ * Returns: 0 if yes
+ * anything else if no
+ *
+ * Bug : no distinction between *depotOne -> depotTwo* and *depotTwo -> depotOne*     
+ */
 int isSolution(const char *depotOne, const char *depotTwo, const char
 **solution);
+
+/**
+ * myAbs(a) = |a|
+ */
 int myAbs(const int a);
 
 
@@ -49,6 +71,7 @@ int main(int argc, char **argv)
     int c;
     int mark = -1;
     int locations = 0;
+
     /**
       mark
       if mark == -1:
@@ -101,10 +124,9 @@ int main(int argc, char **argv)
 
     if(output)
         printf("Reading the input file.\n");
-    do
+    do // while(c != EOF)
     {
         c = fgetc(inputFileP);
-        //printf("locationMarker : %d, Lecture de >>> %c <<<\n", locationMarker, c);
         if(locationMarker < locations)
         {
             if(mark == -1)
@@ -174,21 +196,17 @@ int main(int argc, char **argv)
                 else
                 {
                     int add = relationsLabel[locationMarker][curserCurrentRelation];
-                    //int oadd = add;
                     add = add + charToInt(c) * myPow(10, --labelIntMarker);
-                    //printf("add(%d) = add(%d) + %d * %d\n", add, oadd,
-                    //charToInt(c), myPow(10, labelIntMarker));
                     relationsLabel[locationMarker][curserCurrentRelation] = add;
                 }
             }
         } else   // We are done looking for files, we are now registering the
-                // solution
+                // solution path
         {
             if(c == ' ' || c == '\n')
             {
                 solutions[solutionMarker++][solutionStrMarker] = '\0';
                 solutionStrMarker = 0;
-                //printf("Capture de %s !\n", solutions[solutionMarker-1]);
             }
             else
                 solutions[solutionMarker][solutionStrMarker++] = c;
@@ -218,6 +236,8 @@ int main(int argc, char **argv)
         exit(3);
     }
 
+
+    // Begin: writing into output file
 
     if(output)
         printf("digraph G {\n");
@@ -259,6 +279,8 @@ int main(int argc, char **argv)
 
     fclose(outputFileP);
 
+    // End: writing into output file
+    // Begin: free the memory
 
     for(i = 0; i < locations; i++)
     {
@@ -277,13 +299,15 @@ int main(int argc, char **argv)
     free(nbOfRelations);
     free(solutions);
 
+    // End: memory freed
+
     return 0;
 }
 
 int charToInt(const char c)
 {
-    if(c > 47 && c < 58)
-        return c - 48;
+    if(c > 47 && c < 58) // 46 => numbers =< 57
+        return c - 48; // formula to get the actual number
     else
         return 0;
 }
