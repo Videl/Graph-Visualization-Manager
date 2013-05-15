@@ -26,7 +26,7 @@ Exemple avec quatre dépôts :
     depot1 3 2 023 3 046 4 067
     depot2 2 3 045 4 046
     depot3 1 4 027
-    depot4 3
+    depot4 0
 
 Il faut bien noter la taille minimale du **nombre** dans les distances, c'est-à-dire 3 chiffres. Pour le modifier, c'est la variable pré-processeur #define SIZE_NUMBER.
 
