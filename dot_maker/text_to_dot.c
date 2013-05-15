@@ -251,12 +251,13 @@ int main(int argc, char **argv)
         {
             if(output)
             {
-                int sol = isSolution(names[i], names[relations[i][j]], solutions);
+                int sol = isSolution(names[i], names[relations[i][j]-1], solutions);
                 if(sol == 0)
                     printf("%s->%s [label = \"%d\", color=red]\n", names[i],
-                    names[relations[i][j]], relationsLabel[i][j]);
+                    names[relations[i][j]-1], relationsLabel[i][j]);
                 else
-                    printf("%s->%s [label = \"%d\"]\n", names[i], names[relations[i][j]], relationsLabel[i][j]);
+                    printf("%s->%s [label = \"%d\"]\n", names[i],
+                    names[relations[i][j]-1], relationsLabel[i][j]);
             }
             else
             {   
