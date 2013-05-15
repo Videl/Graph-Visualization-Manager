@@ -46,8 +46,12 @@ int main(void)
     scanf("%s", input);
     getchar();
     
-    //system(./dot_maker/text_to_dot reseau/input.txt output.dot);
-    //system(dot -t png -o output.png output.dot);
+    strcpy (appel,"./dot_maker/text_to_dot reseau/");
+    strcat (appel,input);
+    strcat (appel,".txt output.dot");
+    
+    system(appel);
+    system("dot -t png -o output.png output.dot");
     
     
 }
