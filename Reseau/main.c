@@ -18,10 +18,9 @@ int main()
     int i = 0;
     char** Nom_Depot;
     
-    printf(" ====================\n");
-    printf(" Projet C : \n");
-    printf(" Visualisation d'un réseau de transport \n");
-    printf(" ====================\n");
+    printf("##################################\n");
+    printf("# Création de dépôt déjà existant #\n");
+    printf("##################################\n");
     
    Depot = Charge_Graphe(Depot, &Nom_Depot, &Nb_depot_graphe);
     
